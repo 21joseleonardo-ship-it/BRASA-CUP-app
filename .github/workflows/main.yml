@@ -1,0 +1,14 @@
+
+name: Compilar BRASA CUP
+
+on:
+  workflow_dispatch:
+
+jobs:
+  preparar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verificar ambiente
+        run: |
+          echo "Ambiente de compilação do BRASA CUP preparado."
+          echo "Aguardando os arquivos do aplicativo Android."
