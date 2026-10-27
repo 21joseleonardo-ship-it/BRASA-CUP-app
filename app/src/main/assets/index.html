@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0b0d">
+<title>BRASA CUP</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b0b0d;color:#fff;font-family:Arial,sans-serif;padding:20px}
+header{text-align:center;border-bottom:2px solid #ff007a;padding:20px 0}
+h1{color:#ff007a;letter-spacing:3px;margin:0}
+.sub{color:#aaa;font-size:12px;letter-spacing:2px}
+button{background:#ff007a;color:white;border:0;border-radius:8px;padding:14px;font-weight:bold;width:100%;margin-top:12px}
+.card{background:#18181d;border:1px solid #393941;border-radius:12px;padding:16px;margin-top:18px}
+input{width:100%;padding:12px;margin-top:10px;background:#24242a;color:white;border:1px solid #555;border-radius:7px}
+</style>
+</head>
+<body>
+<header>
+<h1>BRASA CUP</h1>
+<p class="sub">GESTÃO DE CAMPEONATOS</p>
+</header>
+<section class="card">
+<h3>NOVO CAMPEONATO</h3>
+<input id="nome" placeholder="Nome do campeonato">
+<button onclick="criar()">CRIAR CAMPEONATO</button>
+<p id="status"></p>
+</section>
+<section class="card">
+<h3>MEUS CAMPEONATOS</h3>
+<div id="lista">Nenhum campeonato cadastrado.</div>
+</section>
+<script>
+let campeonatos=[];
+try{campeonatos=JSON.parse(localStorage.getItem('brasa_campeonatos')||'[]')}catch(e){}
+function mostrar(){
+document.getElementById('lista').innerHTML=campeonatos.length?campeonatos.map((c,i)=>'<p>'+(i+1)+'. '+c.nome+'</p>').join(''):'Nenhum campeonato cadastrado.';
+}
+function criar(){
+let campo=document.getElementById('nome');
+let nome=campo.value.trim();
+if(!nome){document.getElementById('status').textContent='Digite o nome do campeonato.';return}
+campeonatos.push({nome});
+localStorage.setItem('brasa_campeonatos',JSON.stringify(campeonatos));
+campo.value='';
+document.getElementById('status').textContent='Campeonato cadastrado!';
+mostrar();
+}
+mostrar();
+</script>
+</body>
+</html>
